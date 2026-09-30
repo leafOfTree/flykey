@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Flykey",
   "version": "1.2.1",
-  "description": "Navigate pages, tabs, history, and bookmarks efficiently with keyboard shortcuts.",
+  "description": "用 Vim 风格快捷键高效浏览网页、切换标签页、搜索历史记录和添加书签。",
   "minimum_chrome_version": "99",
   "permissions": [
     "activeTab",

@@ -71,6 +71,8 @@ test("extension and store images have the required dimensions", async () => {
     ...[16, 32, 48, 128].map((size) => [`../icon/${size}.png`, size, size]),
     ["../store-assets/screenshot-command-1280x800.png", 1280, 800],
     ["../store-assets/promo-small-440x280.png", 440, 280],
+    ["../store-assets/promo-marquee-1400x560.png", 1400, 560],
+    ...["1-link-hints", "2-command-palette", "3-site-toggle", "4-help"].map((name) => [`../store-assets/screenshot-${name}.png`, 1280, 800]),
     ["../docs/images/toolbar-popup.png", 310, 380],
   ];
 
