@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="description" content="Flykey 快捷键与使用帮助。" />
+    <title>快捷键与使用帮助 — Flykey</title>
+    <link rel="icon" href="../icon/32.png" type="image/png" />
+    <link rel="stylesheet" href="./help.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="Flykey 帮助首页">
+        <img src="../icon/128.png" width="38" height="38" alt="" />
+        <span>Flykey</span>
+      </a>
+      <nav aria-label="帮助页导航">
+        <a href="#shortcuts">快捷键</a>
+        <a href="#command">命令面板</a>
+        <a href="#settings">网站设置</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div>
+          <p class="eyebrow">Keyboard-first browsing</p>
+          <h1>快捷键与使用帮助</h1>
+          <p class="lead">在普通网页上用键盘完成滚动、跳转、搜索和标签页管理。输入框获得焦点时，Flykey 会自动让出按键。</p>
+        </div>
+        <div class="help-key" aria-label="打开帮助页的快捷键"><kbd>?</kbd><span>随时打开本页</span></div>
+      </section>
+
+      <section class="quick-start" aria-labelledby="quick-start-title">
+        <h2 id="quick-start-title">先记住这三个</h2>
+        <div class="quick-grid">
+          <article><kbd>j</kbd><kbd>k</kbd><strong>滚动页面</strong><span>按住即可连续滚动</span></article>
+          <article><kbd>f</kbd><strong>定位链接</strong><span>输入页面上的提示字母</span></article>
+          <article><kbd>o</kbd><strong>搜索与打开</strong><span>历史、网址和站点搜索</span></article>
+        </div>
+      </section>
+
+      <section id="shortcuts" aria-labelledby="shortcuts-title">
+        <div class="section-heading">
+          <div><p class="eyebrow">Reference</p><h2 id="shortcuts-title">全部快捷键</h2></div>
+          <p>组合键按顺序输入，例如 <kbd>g</kbd><kbd>r</kbd>，无需同时按下。</p>
+        </div>
+
+        <div class="shortcut-groups">
+          <article class="shortcut-card">
+            <h3>页面导航</h3>
+            <dl>
+              <div><dt><kbd>j</kbd> <kbd>k</kbd></dt><dd>向下 / 向上连续滚动</dd></div>
+              <div><dt><kbd>gg</kbd> <kbd>G</kbd></dt><dd>跳到页面顶部 / 底部</dd></div>
+              <div><dt><kbd>f</kbd> <kbd>F</kbd></dt><dd>链接提示 / 当前视频全屏</dd></div>
+              <div><dt><kbd>i</kbd></dt><dd>聚焦第一个可见输入框</dd></div>
+              <div><dt><kbd>w</kbd> <kbd>e</kbd></dt><dd>后退 / 前进</dd></div>
+              <div><dt><kbd>gh</kbd> <kbd>gu</kbd></dt><dd>网站根路径 / 上一级路径</dd></div>
+              <div><dt><kbd>[</kbd> <kbd>]</kbd></dt><dd>上一页 / 下一页</dd></div>
+              <div><dt><kbd>r</kbd></dt><dd>刷新当前页面</dd></div>
+            </dl>
+          </article>
+
+          <article class="shortcut-card">
+            <h3>标签页</h3>
+            <dl>
+              <div><dt><kbd>t</kbd></dt><dd>新建标签页</dd></div>
+              <div><dt><kbd>h</kbd> <kbd>l</kbd></dt><dd>上一个 / 下一个标签页</dd></div>
+              <div><dt><kbd>d</kbd></dt><dd>关闭当前标签页</dd></div>
+              <div><dt><kbd>u</kbd></dt><dd>恢复最近关闭的标签页</dd></div>
+              <div><dt><kbd>gx</kbd></dt><dd>关闭其他非固定标签页</dd></div>
+            </dl>
+          </article>
+
+          <article class="shortcut-card">
+            <h3>工具</h3>
+            <dl>
+              <div><dt><kbd>o</kbd></dt><dd>打开搜索命令面板</dd></div>
+              <div><dt><kbd>b</kbd></dt><dd>收藏当前页面</dd></div>
+              <div><dt><kbd>y</kbd> <kbd>Y</kbd></dt><dd>复制 URL / 页面标题</dd></div>
+              <div><dt><kbd>s</kbd></dt><dd>朗读选区或可见正文；再次按下结束</dd></div>
+              <div><dt><kbd>\</kbd></dt><dd>切换 GitHub 文件显示</dd></div>
+              <div><dt><kbd>;</kbd></dt><dd>临时暂停或恢复当前页面</dd></div>
+              <div><dt><kbd>gr</kbd></dt><dd>重新加载扩展并刷新页面</dd></div>
+              <div><dt><kbd>?</kbd></dt><dd>打开本帮助页</dd></div>
+            </dl>
+          </article>
+        </div>
+      </section>
+
+      <section class="guide-grid" id="command" aria-labelledby="command-title">
+        <article class="guide-copy">
+          <p class="eyebrow">Command palette</p>
+          <h2 id="command-title">命令面板</h2>
+          <p>按 <kbd>o</kbd> 后输入历史标题、网址或搜索词。使用方向键选择结果，按 <kbd>Esc</kbd> 关闭。</p>
+          <ul>
+            <li><kbd>Enter</kbd> 在新标签页打开</li>
+            <li><kbd>Ctrl</kbd>/<kbd>⌘</kbd> + <kbd>Enter</kbd> 在当前标签页打开</li>
+            <li>可以直接输入完整网址或 localhost 地址</li>
+          </ul>
+        </article>
+        <article class="prefix-card" aria-label="搜索前缀">
+          <div><kbd>h</kbd><span>GitHub</span><code>h svelte</code></div>
+          <div><kbd>c</kbd><span>GitCode</span><code>c vue</code></div>
+          <div><kbd>s</kbd><span>Stack Overflow</span><code>s extension</code></div>
+          <div><kbd>y</kbd><span>YouTube</span><code>y keyboard</code></div>
+          <div><kbd>w</kbd><span>Wikipedia</span><code>w browser</code></div>
+          <div><kbd>l</kbd><span>localhost</span><code>l 5173</code></div>
+        </article>
+      </section>
+
+      <section class="settings" id="settings" aria-labelledby="settings-title">
+        <div>
+          <p class="eyebrow">Per-site control</p>
+          <h2 id="settings-title">需要安静时，随时停用</h2>
+          <p>点击 Chrome 工具栏中的 Flykey 图标，可为当前网站长期启用或停用按键映射。停用时，当前标签页的图标会显示小型 off 徽标；设置只保存在浏览器本地。</p>
+        </div>
+        <div class="setting-notes">
+          <p><kbd>;</kbd><strong>临时暂停</strong><span>只影响当前页面，刷新后恢复。</span></p>
+          <p><span class="toggle" aria-hidden="true"><i></i></span><strong>网站开关</strong><span>按域名保存，修改后立即生效。</span></p>
+        </div>
+      </section>
+
+      <aside class="notice">
+        <strong>提示</strong>
+        <p>Chrome 内部页面、Chrome Web Store 等受浏览器保护的页面不允许扩展注入，因此 Flykey 快捷键不会生效。</p>
+      </aside>
+    </main>
+
+    <footer><span>Flykey · Keyboard-first browsing</span><a href="https://github.com/leafOfTree/flykey" target="_blank" rel="noreferrer">GitHub ↗</a></footer>
+  </body>
+</html>

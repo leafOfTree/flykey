@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 280">
+  <defs>
+    <linearGradient id="tile" x1="20" y1="15" x2="420" y2="265" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0F172A"/>
+      <stop offset="1" stop-color="#164E63"/>
+    </linearGradient>
+    <linearGradient id="icon" x1="66" y1="52" x2="194" y2="212" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#38BDF8"/>
+      <stop offset="1" stop-color="#2563EB"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="14" stdDeviation="14" flood-color="#020617" flood-opacity=".45"/>
+    </filter>
+  </defs>
+  <rect width="440" height="280" rx="0" fill="url(#tile)"/>
+  <circle cx="128" cy="134" r="76" fill="url(#icon)" filter="url(#shadow)"/>
+  <g transform="translate(67 99)">
+    <rect width="122" height="72" rx="12" fill="#fff"/>
+    <g fill="#2563EB">
+      <rect x="12" y="13" width="14" height="11" rx="3"/><rect x="31" y="13" width="14" height="11" rx="3"/><rect x="50" y="13" width="14" height="11" rx="3"/><rect x="69" y="13" width="14" height="11" rx="3"/><rect x="88" y="13" width="22" height="11" rx="3"/>
+      <rect x="12" y="30" width="20" height="11" rx="3"/><rect x="37" y="30" width="14" height="11" rx="3"/><rect x="56" y="30" width="14" height="11" rx="3"/><rect x="75" y="30" width="14" height="11" rx="3"/><rect x="94" y="30" width="16" height="11" rx="3"/>
+      <rect x="12" y="47" width="26" height="11" rx="3"/><rect x="43" y="47" width="48" height="11" rx="3"/><rect x="96" y="47" width="14" height="11" rx="3"/>
+    </g>
+  </g>
+  <path d="m160 74 22 10-22 10 5-10-5-10Z" fill="#fff"/>
+  <text x="215" y="124" fill="#F8FAFC" font-family="Inter, system-ui, sans-serif" font-size="38" font-weight="750">Flykey</text>
+  <text x="215" y="157" fill="#99F6E4" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="650" letter-spacing=".3">KEYBOARD-FIRST BROWSING</text>
+  <text x="215" y="187" fill="#CBD5E1" font-family="Inter, system-ui, sans-serif" font-size="14">Navigate the web at speed.</text>
+</svg>

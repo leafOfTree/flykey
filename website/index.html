@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#07111f" />
+    <meta name="description" content="Flykey 是一个用 Vim 风格快捷键控制网页、标签页、历史、书签和正文朗读的 Chrome 扩展。" />
+    <meta property="og:title" content="Flykey — 把浏览器交给键盘" />
+    <meta property="og:description" content="滚动、跳转、搜索历史、管理标签页、朗读可见正文，全程不离开键盘。" />
+    <meta property="og:type" content="website" />
+    <title>Flykey — 把浏览器交给键盘</title>
+    <link rel="icon" href="./assets/logo.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./script.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">跳到主要内容</a>
+
+    <header class="site-header">
+      <nav class="nav shell" aria-label="主导航">
+        <a class="brand" href="#top" aria-label="Flykey 首页">
+          <img src="./assets/logo.svg" alt="" width="38" height="38" />
+          <span>Flykey</span>
+        </a>
+        <button class="menu-button" type="button" aria-expanded="false" aria-controls="nav-links">
+          <span class="sr-only">打开导航</span>
+          <span></span><span></span><span></span>
+        </button>
+        <div class="nav-links" id="nav-links">
+          <a href="#features">功能</a>
+          <a href="#shortcuts">快捷键</a>
+          <a href="#install">安装</a>
+          <a href="./privacy.html">隐私</a>
+          <a class="nav-github" href="https://github.com/leafOfTree/flykey" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+        </div>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="hero shell" id="top">
+        <div class="hero-copy">
+          <div class="eyebrow"><span></span> Chrome · Manifest V3</div>
+          <h1>把浏览器，<br /><em>交给键盘。</em></h1>
+          <p class="hero-lead">滚动页面、定位链接、搜索历史、切换标签页、朗读当前可见正文。Flykey 把高频浏览动作压缩成自然的 Vim 风格按键，也允许你按网站随时启停。</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#install">开始使用 <span aria-hidden="true">→</span></a>
+            <a class="button button-secondary" href="https://github.com/leafOfTree/flykey" target="_blank" rel="noreferrer">查看源码</a>
+          </div>
+          <div class="trust-row" aria-label="产品特性">
+            <span>零追踪</span><span>本地处理</span><span>开源</span>
+          </div>
+        </div>
+
+        <div class="hero-demo" aria-label="Flykey 命令面板交互演示">
+          <div class="glow glow-one"></div><div class="glow glow-two"></div>
+          <div class="browser-frame">
+            <div class="browser-bar" aria-hidden="true">
+              <div class="traffic-lights"><i></i><i></i><i></i></div>
+              <div class="address">docs.svelte.dev</div>
+              <div class="browser-more">•••</div>
+            </div>
+            <div class="page-preview" aria-hidden="true">
+              <div class="page-kicker"></div><div class="page-title"></div>
+              <div class="page-line wide"></div><div class="page-line"></div><div class="page-line short"></div>
+            </div>
+            <div class="command-palette">
+              <label class="demo-search">
+                <span class="sr-only">尝试搜索</span>
+                <input id="demo-input" type="text" value="svelte" autocomplete="off" spellcheck="false" aria-controls="demo-results" />
+              </label>
+              <div class="demo-results" id="demo-results" aria-live="polite"></div>
+            </div>
+          </div>
+          <p class="demo-hint"><kbd>o</kbd> 随时唤起命令面板 · 可以直接输入试试</p>
+        </div>
+      </section>
+
+      <section class="section shell" id="features">
+        <div class="section-heading">
+          <div class="eyebrow"><span></span> 少一点鼠标，多一点流畅</div>
+          <h2>浏览器里的高频动作，<br />现在只需要一两个按键。</h2>
+        </div>
+        <div class="feature-grid">
+          <article class="feature-card feature-highlight">
+            <div class="feature-icon">⌘</div>
+            <h3>全局命令面板</h3>
+            <p>本地搜索最近访问的网页，也可以直达 Google、GitHub、YouTube、Wikipedia 和 localhost。</p>
+            <div class="mini-command"><kbd>o</kbd><span>输入标题或网址</span><kbd>↵</kbd></div>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon">↕</div>
+            <h3>自然滚动</h3>
+            <p>用 <kbd>j</kbd> / <kbd>k</kbd> 连续滚动，Flykey 会自动寻找当前页面真正的滚动容器。</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon">↗</div>
+            <h3>链接提示</h3>
+            <p>按 <kbd>f</kbd> 为可点击元素生成短标签，不用 Tab 很多次，也不必伸手找鼠标。</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon">▱</div>
+            <h3>标签页管理</h3>
+            <p>在当前窗口内切换、关闭、恢复标签页，并像 Chrome 原生命令一样保护固定标签页。</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon">◎</div>
+            <h3>按网站控制</h3>
+            <p>工具栏开关会记住当前网站的设置，停用时扩展图标显示小型 off 徽标；按 <kbd>;</kbd> 则只临时暂停当前页面，刷新后自动恢复。</p>
+            <div class="site-control" aria-hidden="true"><span><small>当前网站</small><strong>docs.example.com</strong></span><i><b></b></i></div>
+          </article>
+          <article class="feature-card speech-feature">
+            <div class="speech-copy">
+              <div class="feature-icon">◖</div>
+              <h3>选中即读，再按即停</h3>
+              <p>有选区时优先朗读所选文字；没有选区时，只读取当前视口内真正可见的正文。按 <kbd>s</kbd> 开始，再按一次立即结束。</p>
+              <div class="speech-points" aria-label="朗读功能特点">
+                <span>只读当前可见内容</span><span>自动识别中英文</span><span>优先高质量系统语音</span>
+              </div>
+            </div>
+            <div class="speech-visual" role="img" aria-label="Flykey 朗读选区或当前视口正文，并在页面顶部显示朗读状态的示意图">
+              <div class="speech-browser-bar" aria-hidden="true"><i></i><i></i><i></i><span>阅读示例 · article.example.com</span></div>
+              <div class="speech-page" aria-hidden="true">
+                <div class="speech-status"><i></i><strong>朗读中</strong><span><kbd>s</kbd> 结束</span></div>
+                <small>当前视口内的正文</small>
+                <h4>让浏览更专注，也更轻松。</h4>
+                <p><mark>Flykey 会优先朗读你选中的文字。</mark>没有选区时，则读取当前视口内真正可见的正文。</p>
+                <p class="speech-note"><strong>中英文混排</strong>时，会按语句自动匹配合适的系统语音。</p>
+                <div class="speech-language"><span>中文语音</span><span>英文语音</span><span>本地系统语音</span></div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section shortcut-section" id="shortcuts">
+        <div class="shell shortcut-layout">
+          <div class="shortcut-intro">
+            <div class="eyebrow"><span></span> 快捷键速查</div>
+            <h2>记住几个键，<br />剩下的交给肌肉记忆。</h2>
+            <p>按键只在普通模式下生效。进入输入框后正常打字，按 <kbd>Esc</kbd> 返回普通模式；按 <kbd>s</kbd> 可开始或结束朗读，状态会显示在页面顶部；工具栏开关可长期停用当前网站。</p>
+            <div class="mode-switch" role="group" aria-label="快捷键分类">
+              <button class="active" type="button" data-filter="all">全部</button>
+              <button type="button" data-filter="page">页面</button>
+              <button type="button" data-filter="tab">标签页</button>
+              <button type="button" data-filter="utility">工具</button>
+            </div>
+          </div>
+          <div class="shortcut-list" id="shortcut-list">
+            <div class="shortcut-row" data-category="page"><span><kbd>j</kbd> <kbd>k</kbd></span><strong>向下 / 向上滚动</strong></div>
+            <div class="shortcut-row" data-category="page"><span><kbd>gg</kbd> <kbd>G</kbd></span><strong>页面顶部 / 底部</strong></div>
+            <div class="shortcut-row" data-category="page"><span><kbd>f</kbd> <kbd>F</kbd></span><strong>链接提示 / 视频全屏</strong></div>
+            <div class="shortcut-row" data-category="page"><span><kbd>w</kbd> <kbd>e</kbd></span><strong>后退 / 前进</strong></div>
+            <div class="shortcut-row" data-category="page"><span><kbd>r</kbd> <kbd>gr</kbd></span><strong>刷新页面 / 重新加载扩展</strong></div>
+            <div class="shortcut-row" data-category="tab"><span><kbd>h</kbd> <kbd>l</kbd></span><strong>上一个 / 下一个标签页</strong></div>
+            <div class="shortcut-row" data-category="tab"><span><kbd>t</kbd> <kbd>d</kbd> <kbd>u</kbd></span><strong>新建 / 关闭 / 恢复标签页</strong></div>
+            <div class="shortcut-row" data-category="tab"><span><kbd>gx</kbd></span><strong>关闭其他非固定标签页</strong></div>
+            <div class="shortcut-row" data-category="utility"><span><kbd>o</kbd></span><strong>打开搜索命令面板</strong></div>
+            <div class="shortcut-row" data-category="utility"><span><kbd>b</kbd> <kbd>y</kbd> <kbd>Y</kbd></span><strong>收藏 / 复制 URL / 复制标题</strong></div>
+            <div class="shortcut-row" data-category="utility"><span><kbd>s</kbd></span><strong>朗读选区或可见正文；再次按下结束</strong></div>
+            <div class="shortcut-row" data-category="utility"><span><kbd>;</kbd></span><strong>临时暂停或恢复当前页面</strong></div>
+            <div class="shortcut-row" data-category="utility"><span><kbd>?</kbd></span><strong>打开快捷键与使用帮助</strong></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section shell" id="install">
+        <div class="install-card">
+          <div class="install-copy">
+            <div class="eyebrow"><span></span> 安装 Flykey</div>
+            <h2>两分钟，开始用键盘浏览。</h2>
+            <p>商店发布前可以从源码安装开发版。构建产物只包含本地代码，不加载任何远程脚本。</p>
+            <a class="button button-primary" href="https://github.com/leafOfTree/flykey" target="_blank" rel="noreferrer">前往 GitHub <span aria-hidden="true">↗</span></a>
+          </div>
+          <ol class="install-steps">
+            <li><span>01</span><div><strong>获取源码并构建</strong><code>npm install &amp;&amp; npm run build</code></div></li>
+            <li><span>02</span><div><strong>打开扩展管理页</strong><code>chrome://extensions</code></div></li>
+            <li><span>03</span><div><strong>开启开发者模式</strong><p>点击“加载已解压的扩展程序”，选择项目根目录。</p></div></li>
+            <li><span>04</span><div><strong>按网站自由启停</strong><p>点击工具栏中的 Flykey 图标，使用开关保存当前网站偏好。</p></div></li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="section shell privacy-callout">
+        <div>
+          <div class="eyebrow"><span></span> Privacy by design</div>
+          <h2>你的浏览历史，<br />不会成为我们的数据。</h2>
+        </div>
+        <div class="privacy-copy">
+          <p>Flykey 不含分析 SDK、广告或账号系统。历史搜索和正文提取都在当前设备完成；朗读内容只交给浏览器或操作系统提供的语音功能。</p>
+          <a href="./privacy.html">阅读完整隐私政策 <span aria-hidden="true">→</span></a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="shell footer-inner">
+        <a class="brand" href="#top"><img src="./assets/logo.svg" alt="" width="34" height="34" /><span>Flykey</span></a>
+        <p>Keyboard-first browsing.</p>
+        <div><a href="https://github.com/leafOfTree/flykey" target="_blank" rel="noreferrer">GitHub</a><a href="./privacy.html">隐私</a><span>© <span id="year">2026</span></span></div>
+      </div>
+    </footer>
+  </body>
+</html>
