@@ -64,16 +64,17 @@ Flykey 把浏览器交给键盘。用简短的 Vim 风格快捷键滚动网页�
 
 > Flykey provides keyboard-first navigation for web pages and browser tabs. Its history search, link hints, scrolling, bookmarking, and tab commands all support that single navigation purpose.
 
-权限理由：
+权限理由（提交审核用英文，逐项粘贴到“Privacy”页对应字段）：
 
-- `history`：用户主动打开命令面板时搜索本地浏览历史。
-- `bookmarks`：用户主动执行收藏命令时创建书签。
-- `sessions`：恢复用户最近关闭的标签页。
-- `favicon`：为本地历史搜索结果显示站点图标。
-- `clipboardWrite`：复制当前页面 URL 或标题。
-- `activeTab`：用户点击工具栏图标后，读取当前网站并打开该标签页中的命令面板。
-- `storage`：仅在 Chrome 本地保存用户选择停用 Flykey 的网站域名。
-- 主机范围 `<all_urls>`：在用户访问的普通网页上提供键盘导航。代码不注入 Chrome 内部页面。
+- `history`: Used only when the user opens the command palette, to search their local browsing history. Results are filtered in memory on the device and are never stored or transmitted.
+- `bookmarks`: Used only when the user presses the bookmark shortcut, to add the current page to their bookmarks.
+- `sessions`: Used only when the user presses the restore shortcut, to reopen their most recently closed tab.
+- `favicon`: Used to display site icons next to the user's local history search results.
+- `clipboardWrite`: Used only when the user presses the copy shortcut, to copy the current page's URL or title to the clipboard.
+- `activeTab`: Used when the user clicks the toolbar icon, to read the current site's hostname for the per-site on/off switch and to open the command palette in that tab.
+- `storage`: Used to save, locally in Chrome, the list of website hostnames where the user has turned Flykey off. This list is never transmitted.
+- Host permission `<all_urls>`: Flykey's single purpose is keyboard navigation on the web pages the user visits, so its content script must run on ordinary web pages to handle scrolling, link hints and other shortcuts. It does not run on Chrome internal pages, and it does not collect or transmit page content.
+- Remote code: No. All code is bundled in the extension package; nothing is loaded or evaluated from remote sources.
 
 数据使用披露建议如实勾选“Web history”和“Website content”，用途选择核心功能；声明数据不出售、不用于广告、不用于信用或借贷，并遵守 Chrome Web Store Limited Use 要求。
 
