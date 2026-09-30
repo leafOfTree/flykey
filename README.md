@@ -5,7 +5,7 @@
   <p>用 Vim 风格快捷键滚动网页、定位链接、搜索历史、管理标签页和书签。</p>
   <p>
     <a href="https://chromewebstore.google.com/detail/flykey/ajmlimcpgjabfaodkdgmpkiipjbhpbag">Chrome 网上应用店</a> ·
-    <a href="website/index.html">产品网站</a> ·
+    <a href="https://leafoftree.github.io/flykey/">产品网站</a> ·
     <a href="#安装">安装</a> ·
     <a href="#快捷键">快捷键</a> ·
     <a href="PRIVACY.md">隐私政策</a> ·
@@ -125,7 +125,7 @@ npm run package
 
 ### 静态网站
 
-官网是 `website/` 目录中的零依赖静态站点，可以直接部署到任意静态托管服务。本地预览：
+官网是 `website/` 目录中的零依赖静态站点，推送到 `main` 后由 GitHub Actions 自动发布到 [leafoftree.github.io/flykey](https://leafoftree.github.io/flykey/)。本地预览：
 
 ```bash
 npm run site:dev

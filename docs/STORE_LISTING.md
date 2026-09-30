@@ -82,7 +82,7 @@ Flykey 把浏览器交给键盘。用简短的 Vim 风格快捷键滚动网页�
 
 首次上架时已完成以下事项，后续发版只需确认没有变化：
 
-- [x] 隐私政策发布在公开 HTTPS 地址，支持渠道为 [GitHub Issues](https://github.com/leafOfTree/flykey/issues)。
+- [x] 隐私政策发布在公开 HTTPS 地址：<https://leafoftree.github.io/flykey/privacy.html>（`website/privacy.html`，由 GitHub Pages 发布；需与 `PRIVACY.md` 保持一致），支持渠道为 [GitHub Issues](https://github.com/leafOfTree/flykey/issues)。
 - [x] 在开发者控制台填写隐私政策 URL、权限理由和单一用途说明。
 - [x] 上传 `store-assets/screenshot-command-1280x800.png` 和 `store-assets/promo-small-440x280.png`。
 - [ ] 上传 4 张新截图和 1400×560 顶部宣传图（见“商店图片”）。
