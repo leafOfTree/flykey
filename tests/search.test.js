@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import {
   createDisplayList,
+  filterHistory,
   highlightParts,
   normalizeHistoryResults,
   removeDuplicateUrls,
@@ -54,5 +55,74 @@ test("highlights literal search text without creating HTML", () => {
     { text: "Use ", match: false },
     { text: "[brackets]", match: true },
     { text: " safely", match: false },
+  ]);
+});
+
+test("ranks history by match quality before recency", () => {
+  const history = normalizeHistoryResults([
+    { title: "Notes about my svelte app", url: "https://blog.example.com/a", lastVisitTime: 50 },
+    { title: "Presvelte tooling", url: "https://example.com/b", lastVisitTime: 40 },
+    { title: "Docs", url: "https://svelte.dev/docs", lastVisitTime: 10 },
+    { title: "Svelte tutorial", url: "https://example.com/c", lastVisitTime: 20 },
+    { title: "Other", url: "https://example.com/d", lastVisitTime: 60 },
+  ]);
+
+  assert.deepEqual(filterHistory(history, "svelte").map((item) => item.url), [
+    "https://example.com/c",
+    "https://svelte.dev/docs",
+    "https://blog.example.com/a",
+    "https://example.com/b",
+  ]);
+});
+
+test("orders equally good matches by most recent visit", () => {
+  const history = normalizeHistoryResults([
+    { title: "Svelte old", url: "https://example.com/old", lastVisitTime: 1 },
+    { title: "Svelte new", url: "https://example.com/new", lastVisitTime: 2 },
+  ]);
+
+  assert.deepEqual(filterHistory(history, "svelte").map((item) => item.url), [
+    "https://example.com/new",
+    "https://example.com/old",
+  ]);
+});
+
+test("matches multiple words across title and URL", () => {
+  const history = normalizeHistoryResults([
+    { title: "Issues · flykey", url: "https://github.com/leafOfTree/flykey/issues", lastVisitTime: 1 },
+    { title: "Flykey mirror", url: "https://gitcode.com/flykey", lastVisitTime: 2 },
+  ]);
+
+  assert.deepEqual(filterHistory(history, "github issues").map((item) => item.url), [
+    "https://github.com/leafOfTree/flykey/issues",
+  ]);
+});
+
+test("treats Chinese characters as word starts", () => {
+  const history = normalizeHistoryResults([
+    { title: "abc笔记", url: "https://example.com/new", lastVisitTime: 2 },
+    { title: "我的笔记", url: "https://example.com/old", lastVisitTime: 1 },
+    { title: "notebook", url: "https://example.com/other", lastVisitTime: 3 },
+  ]);
+
+  assert.deepEqual(filterHistory(history, "笔记").map((item) => item.url), [
+    "https://example.com/new",
+    "https://example.com/old",
+  ]);
+});
+
+test("ranks keywords at the start or end of the URL first", () => {
+  const history = normalizeHistoryResults([
+    { title: "About flykey", url: "https://example.com/about", lastVisitTime: 40 },
+    { title: "Repo", url: "https://github.com/leafOfTree/flykey/?tab=readme#top", lastVisitTime: 10 },
+    { title: "Site", url: "https://www.flykey.dev/docs", lastVisitTime: 20 },
+    { title: "Issues", url: "https://github.com/leafOfTree/flykey/issues", lastVisitTime: 30 },
+  ]);
+
+  assert.deepEqual(filterHistory(history, "flykey").map((item) => item.url), [
+    "https://www.flykey.dev/docs",
+    "https://github.com/leafOfTree/flykey/?tab=readme#top",
+    "https://example.com/about",
+    "https://github.com/leafOfTree/flykey/issues",
   ]);
 });

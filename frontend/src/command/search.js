@@ -73,29 +73,65 @@ export function removeDuplicateUrls(results) {
   });
 }
 
-function matchScore(item, query) {
-  if (!query) return 0;
+// 匹配档位：数字越小越相关，同一档位内按最近访问时间排序。
+const MatchTier = Object.freeze({
+  PREFIX: 0,
+  WORD_START: 1,
+  TITLE: 2,
+  URL: 3,
+  ALL_WORD_STARTS: 4,
+  ALL_WORDS: 5,
+  NONE: -1,
+});
 
-  const normalizedQuery = query.toLocaleLowerCase();
-  const titleIndex = item.lowerTitle.indexOf(normalizedQuery);
-  if (titleIndex >= 0) return titleIndex;
+// 汉字之间没有空格分词，每个字都视为词首。
+function isWordChar(char) {
+  return /[\p{L}\p{N}]/u.test(char) && !/\p{Script=Han}/u.test(char);
+}
 
-  const urlIndex = item.lowerDisplayUrl.indexOf(normalizedQuery);
-  if (urlIndex >= 0) return 100 + urlIndex;
+function includesAtWordStart(text, word) {
+  let index = text.indexOf(word);
+  while (index !== -1) {
+    if (index === 0 || !isWordChar(text[index - 1]) || !isWordChar(text[index])) return true;
+    index = text.indexOf(word, index + 1);
+  }
+  return false;
+}
 
-  const words = normalizedQuery.split(/\s+/).filter(Boolean);
-  if (words.every((word) => item.lowerTitle.includes(word))) return 1_000;
-  if (words.every((word) => item.lowerDisplayUrl.includes(word))) return 2_000;
-  return -1;
+// 网址结尾通常是仓库、页面等资源名，忽略末尾的 /、查询参数和锚点。
+function urlEndsWith(url, query) {
+  return url.replace(/[?#].*$/, "").replace(/\/+$/, "").endsWith(query);
+}
+
+function matchTier(item, query) {
+  const title = item.lowerTitle;
+  const url = item.lowerDisplayUrl;
+
+  if (title.startsWith(query) || url.startsWith(query) || urlEndsWith(url, query)) {
+    return MatchTier.PREFIX;
+  }
+  if (includesAtWordStart(title, query) || includesAtWordStart(url, query)) return MatchTier.WORD_START;
+  if (title.includes(query)) return MatchTier.TITLE;
+  if (url.includes(query)) return MatchTier.URL;
+
+  const words = query.split(/\s+/).filter(Boolean);
+  if (words.length < 2) return MatchTier.NONE;
+
+  // 多个词可以分别出现在标题和网址中，例如 “github.com svelte”。
+  const text = `${title} ${url}`;
+  if (!words.every((word) => text.includes(word))) return MatchTier.NONE;
+  if (words.every((word) => includesAtWordStart(text, word))) return MatchTier.ALL_WORD_STARTS;
+  return MatchTier.ALL_WORDS;
 }
 
 export function filterHistory(results, query) {
-  if (!query) return results;
+  const normalizedQuery = query.trim().toLocaleLowerCase();
+  if (!normalizedQuery) return results;
 
   return results
-    .map((item) => ({ item, score: matchScore(item, query) }))
-    .filter(({ score }) => score >= 0)
-    .sort((a, b) => a.score - b.score || b.item.lastVisitTime - a.item.lastVisitTime)
+    .map((item) => ({ item, tier: matchTier(item, normalizedQuery) }))
+    .filter(({ tier }) => tier !== MatchTier.NONE)
+    .sort((a, b) => a.tier - b.tier || b.item.lastVisitTime - a.item.lastVisitTime)
     .map(({ item }) => item);
 }
 
