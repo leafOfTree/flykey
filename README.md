@@ -8,7 +8,8 @@
     <a href="website/index.html">产品网站</a> ·
     <a href="#安装">安装</a> ·
     <a href="#快捷键">快捷键</a> ·
-    <a href="PRIVACY.md">隐私政策</a>
+    <a href="PRIVACY.md">隐私政策</a> ·
+    <a href="LICENSE">MIT 许可证</a>
   </p>
   <p>
     <img alt="Manifest V3" src="https://img.shields.io/badge/Chrome-Manifest_V3-4285F4?logo=googlechrome&logoColor=white" />
@@ -171,3 +172,7 @@ Flykey 不会把浏览历史或页面内容发送给开发者或第三方服务�
 Chrome Web Store 提交所需的权限文案、隐私披露和检查步骤见 [发布清单](docs/STORE_LISTING.md)。所需的 1280×800 截图和 440×280 小型宣传图已经放在 `store-assets/`。
 
 提交问题或建议：[GitHub Issues](https://github.com/leafOfTree/flykey/issues)。
+
+## 许可证
+
+[MIT](LICENSE)
