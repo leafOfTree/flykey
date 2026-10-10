@@ -8,7 +8,7 @@ Flykey is a keyboard navigation extension for Chrome. It does not sell user data
 
 Flykey processes the following data locally and only when needed to provide a user-requested feature:
 
-- Open tab titles and URLs in the current window are read when the user opens the command palette, filtered in memory, and used to switch to a selected tab. They are not stored or transmitted by Flykey.
+- Open tab titles and URLs in the current window are read when the user opens the command palette, filtered in memory when the user enters the “t ” prefix to search by title or URL, and used to switch to a selected tab. The default palette results remain browsing history. They are not stored or transmitted by Flykey.
 - Browsing history is read when the user opens the history search panel. Results are filtered in memory and are not stored by Flykey.
 - The current page URL and title are used when the user explicitly adds a bookmark or copies them to the clipboard.
 - Visible page text or the user's selected text is passed to the browser's built-in speech synthesis service when the user starts reading aloud.

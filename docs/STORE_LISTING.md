@@ -19,7 +19,7 @@ Flykey 把浏览器交给键盘。用简短的 Vim 风格快捷键滚动网页�
 按 f，页面上每个链接和按钮都会出现短标签，输入标签即可打开。提示只出现在真正可见的元素上，滚动容器里的链接也能准确定位。
 
 【命令面板】
-按 o 打开命令面板，边输入边筛选最近访问的网页，匹配文字高亮显示，回车即可打开。输入 t 加空格可只搜索当前窗口的标签页，选择后直接切换。输入前缀可以直接搜索指定网站：h 搜索 GitHub，y 搜索 YouTube，s 搜索 Stack Overflow，w 搜索 Wikipedia，c 搜索 GitCode。
+按 o 打开命令面板，边输入边筛选最近访问的网页，匹配文字高亮显示，回车即可打开。默认结果保持为历史记录；在面板内输入 t 加空格和查询词（例如 t svelte），按标题或网址搜索当前窗口已打开的标签页，选择后直接切换。普通模式下单独按 t 仍然是新建标签页。输入前缀可以直接搜索指定网站：h 搜索 GitHub，y 搜索 YouTube，s 搜索 Stack Overflow，w 搜索 Wikipedia，c 搜索 GitCode。
 
 【页面导航】
 • j / k 向下 / 向上滚动，按住可连续滚动
@@ -66,7 +66,7 @@ Flykey 把浏览器交给键盘。用简短的 Vim 风格快捷键滚动网页�
 
 权限理由（提交审核用英文，逐项粘贴到“Privacy”页对应字段）：
 
-- `tabs`: Used only when the user opens the command palette, to read titles and URLs of open tabs in the current window and switch to a selected tab. Results are processed locally and are never stored or transmitted.
+- `tabs`: Used to enable the “t ” prefix in the command palette, allowing users to search open tabs in the current window by title or URL and switch to a selected tab. Tab titles and URLs are read when the palette opens and processed locally in memory; they are never stored or transmitted.
 - `history`: Used only when the user opens the command palette, to search their local browsing history. Results are filtered in memory on the device and are never stored or transmitted.
 - `bookmarks`: Used only when the user presses the bookmark shortcut, to add the current page to their bookmarks.
 - `sessions`: Used only when the user presses the restore shortcut, to reopen their most recently closed tab.
@@ -93,7 +93,7 @@ Flykey 把浏览器交给键盘。用简短的 Vim 风格快捷键滚动网页�
 1. 同步更新 `manifest.json`、根 `package.json`、`frontend/package.json` 的版本号，并在 `CHANGELOG.md` 记录变更。
 2. 执行 `npm ci` 后运行 `npm run package`。
 3. 解压 `release/flykey-<version>.zip`，确认根目录直接包含 `manifest.json`，且没有 source map、测试、开发配置或远程代码。
-4. 在稳定版 Chrome 的 `chrome://extensions` 以“加载已解压”方式冒烟测试：README 中的快捷键、工具栏开关、历史搜索和权限流程。
+4. 在稳定版 Chrome 的 `chrome://extensions` 以“加载已解压”方式冒烟测试：README 中的快捷键、工具栏开关、历史搜索、面板内的 t 前缀标签页搜索和权限流程。
 5. 提交版本变更并打标签：`git tag v<version>`，推送时带上 `--tags`。
 6. 在现有 Flykey 条目的“Package”页选择“Upload New Package”，上传 ZIP，并检查控制台的权限差异提示；新增权限时同步更新权限理由、隐私披露、README 和 `PRIVACY.md`。
 7. 核对商店文案、截图及隐私声明，提交审核；审核通过后确认已发布版本号。

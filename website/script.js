@@ -5,6 +5,8 @@ const demoItems = [
   { icon: "D", iconClass: "docs", title: "Documentation", url: "developer.chrome.com/docs/extensions", keywords: "chrome extension docs" },
 ];
 
+const demoTabs = demoItems.slice(1).map((item) => ({ ...item, openTab: true }));
+
 const escapeHtml = (value) => value.replace(/[&<>"]/g, (character) => ({
   "&": "&amp;",
   "<": "&lt;",
@@ -24,20 +26,22 @@ function renderDemoResults() {
   const container = document.querySelector("#demo-results");
   if (!input || !container) return;
 
-  const query = input.value.trim().toLowerCase();
-  const items = demoItems
-    .filter((item, index) => index === 0 || !query || `${item.title} ${item.url} ${item.keywords}`.toLowerCase().includes(query))
+  const value = input.value.trim().toLowerCase();
+  const tabSearch = /^t(?:\s|$)/.test(value);
+  const query = tabSearch ? value.slice(1).trim() : value;
+  const items = (tabSearch ? demoTabs : demoItems)
+    .filter((item, index) => (!tabSearch && index === 0) || !query || `${item.title} ${item.url} ${item.keywords}`.toLowerCase().includes(query))
     .slice(0, 3);
 
   if (!items.length) {
-    container.innerHTML = '<div class="demo-empty">没有历史结果 · 按 Enter 使用 Google 搜索</div>';
+    container.innerHTML = `<div class="demo-empty">${tabSearch ? "没有匹配的已打开标签页" : "没有历史结果 · 按 Enter 使用 Google 搜索"}</div>`;
     return;
   }
 
   container.innerHTML = items.map((item, index) => `
     <div class="demo-result${index === 0 ? " selected" : ""}">
       <span class="result-icon ${item.iconClass}">${item.icon}</span>
-      <span><span class="result-title">${highlight(item.title, query)}</span><span class="result-url">${highlight(item.url, query)}</span></span>
+      <span><span class="result-title">${highlight(item.title, query)}</span><span class="result-url">${highlight(item.url, query)}${item.openTab ? " · 已打开" : ""}</span></span>
     </div>
   `).join("");
 }
