@@ -1,4 +1,6 @@
 export const MessageType = Object.freeze({
+  ACTIVATE_TAB: "activateTab",
+  SEARCH_TABS: "searchTabs",
   ADD_BOOKMARK: "addBookmark",
   CLOSE_OTHER_TABS: "closeOtherTabs",
   CLOSE_TAB: "closeTab",

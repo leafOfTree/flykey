@@ -10,7 +10,7 @@ test("manifest uses Manifest V3 and only declared production assets", () => {
   assert.equal(manifest.manifest_version, 3);
   assert.equal(manifest.background.type, "module");
   assert.deepEqual(manifest.content_scripts[0].js, ["frontend/dist/index.js"]);
-  assert.equal(manifest.permissions.includes("tabs"), false);
+  assert.equal(manifest.permissions.includes("tabs"), true);
   assert.equal(manifest.permissions.includes("activeTab"), true);
   assert.equal(manifest.permissions.includes("storage"), true);
   assert.equal(manifest.action.default_popup, "popup/index.html");

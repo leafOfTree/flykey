@@ -75,6 +75,23 @@ async function handleMessage(message, sender) {
   assertInternalMessage(message, sender);
 
   switch (message.type) {
+    case MessageType.SEARCH_TABS: {
+      const sourceTab = getSourceTab(sender);
+      return chrome.tabs.query({ windowId: sourceTab.windowId });
+    }
+
+    case MessageType.ACTIVATE_TAB: {
+      const sourceTab = getSourceTab(sender);
+      const tabId = message.payload?.tabId;
+      if (!Number.isInteger(tabId) || tabId < 0) throw new Error("需要提供有效的标签页。");
+      const tabs = await chrome.tabs.query({ windowId: sourceTab.windowId });
+      if (!tabs.some((tab) => tab.id === tabId)) {
+        throw new Error("标签页已关闭或已移到其他窗口，请重新打开搜索面板。");
+      }
+      await chrome.tabs.update(tabId, { active: true });
+      return null;
+    }
+
     case MessageType.SEARCH_HISTORY:
       return chrome.history.search({
         text: "",

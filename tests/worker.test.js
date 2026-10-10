@@ -182,3 +182,24 @@ test("reload extension acknowledges the command before restarting the runtime", 
   await new Promise((resolve) => setTimeout(resolve, 0));
   assert.deepEqual(calls, [["runtime.reload"]]);
 });
+
+test("tab search queries only the source window", async () => {
+  queriedTabs = [{ id: 3, windowId: 7, title: "Docs", url: "https://example.com/" }];
+  assert.deepEqual(await send({ type: MessageType.SEARCH_TABS }), { ok: true, data: queriedTabs });
+  assert.deepEqual(calls, [["tabs.query", { windowId: 7 }]]);
+});
+
+test("tab selection activates an existing tab without creating or navigating", async () => {
+  queriedTabs = [{ id: 3, windowId: 7 }];
+  assert.deepEqual(await send({ type: MessageType.ACTIVATE_TAB, payload: { tabId: 3 } }), { ok: true, data: null });
+  assert.deepEqual(calls, [["tabs.query", { windowId: 7 }], ["tabs.update", 3, { active: true }]]);
+});
+
+test("tab selection rejects closed, moved, and invalid targets", async () => {
+  for (const tabId of [3, -1, "3", undefined]) {
+    calls.length = 0;
+    const response = await send({ type: MessageType.ACTIVATE_TAB, payload: { tabId } });
+    assert.equal(response.ok, false);
+    assert.equal(calls.some(([name]) => name === "tabs.update"), false);
+  }
+});

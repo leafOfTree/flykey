@@ -63,10 +63,34 @@ export function normalizeHistoryResults(results) {
     .filter(Boolean);
 }
 
+export function normalizeTabResults(results) {
+  return results
+    .filter((tab) => Number.isInteger(tab?.id) && tab.id >= 0)
+    .map((tab) => {
+      const url = String(tab.url || tab.pendingUrl || "");
+      const title = String(tab.title || "").trim() || displayUrl(url) || "新标签页";
+      const shownUrl = displayUrl(url);
+      return {
+        tabId: tab.id,
+        title,
+        url,
+        displayUrl: shownUrl,
+        lowerTitle: title.toLocaleLowerCase(),
+        lowerDisplayUrl: shownUrl.toLocaleLowerCase(),
+        favicon: "",
+        lastVisitTime: Number(tab.lastAccessed) || 0,
+      };
+    });
+}
+
 export function removeDuplicateUrls(results) {
   const seen = new Set();
   return results.filter((result) => {
     const key = result.url.replace(/#.*/, "");
+    if (result.tabId !== undefined) {
+      seen.add(key);
+      return true;
+    }
     if (seen.has(key)) return false;
     seen.add(key);
     return true;
@@ -163,12 +187,18 @@ export function getSearchTerms(search) {
   const value = search.trim();
   const providerPrefix = Object.keys(SEARCH_PROVIDERS).find((prefix) => value.startsWith(prefix));
   if (providerPrefix) return value.slice(providerPrefix.length).trim();
+  if (/^t(?:\s|$)/.test(value)) return value.slice(1).trim();
   if (value.startsWith("l ")) return value.slice(2).trim();
   return value;
 }
 
 export function createDisplayList(results, search, faviconUrl = () => "") {
   const value = search.trim();
+  if (/^t(?:\s|$)/.test(value)) {
+    return filterHistory(results.filter((item) => item.tabId !== undefined), getSearchTerms(value))
+      .slice(0, MAX_LIST_ITEMS)
+      .map((item) => ({ ...item, favicon: faviconUrl(item.url) }));
+  }
   let historyQuery = value;
   const actions = [];
 
@@ -221,7 +251,7 @@ export function createDisplayList(results, search, faviconUrl = () => "") {
 
   return removeDuplicateUrls([
     ...actions,
-    ...filterHistory(results, historyQuery).slice(0, MAX_LIST_ITEMS),
+    ...filterHistory(results.filter((item) => item.tabId === undefined), historyQuery).slice(0, MAX_LIST_ITEMS),
   ])
     .slice(0, MAX_LIST_ITEMS + actions.length)
     .map((item) => item.favicon ? item : { ...item, favicon: faviconUrl(item.url) });

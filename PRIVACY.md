@@ -1,6 +1,6 @@
 # Flykey Privacy Policy
 
-Effective date: September 19, 2026
+Effective date: October 10, 2026
 
 Flykey is a keyboard navigation extension for Chrome. It does not sell user data, use analytics, display advertising, or maintain a remote user account.
 
@@ -8,6 +8,7 @@ Flykey is a keyboard navigation extension for Chrome. It does not sell user data
 
 Flykey processes the following data locally and only when needed to provide a user-requested feature:
 
+- Open tab titles and URLs in the current window are read when the user opens the command palette, filtered in memory, and used to switch to a selected tab. They are not stored or transmitted by Flykey.
 - Browsing history is read when the user opens the history search panel. Results are filtered in memory and are not stored by Flykey.
 - The current page URL and title are used when the user explicitly adds a bookmark or copies them to the clipboard.
 - Visible page text or the user's selected text is passed to the browser's built-in speech synthesis service when the user starts reading aloud.
@@ -20,7 +21,7 @@ Flykey itself does not transmit browsing history, page content, personal informa
 
 ## Chrome permissions
 
-Flykey requests only the permissions required for its current features: history search, bookmark creation, recently closed tab restoration, favicon display, clipboard writing, access to the active tab after a toolbar click, local preference storage, and keyboard navigation on ordinary web pages. Permission details are also documented in the project README and Chrome Web Store listing.
+Flykey requests only the permissions required for its current features: open tab search and selection, history search, bookmark creation, recently closed tab restoration, favicon display, clipboard writing, access to the active tab after a toolbar click, local preference storage, and keyboard navigation on ordinary web pages. Permission details are also documented in the project README and Chrome Web Store listing.
 
 ## Changes
 

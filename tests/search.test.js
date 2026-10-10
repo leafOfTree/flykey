@@ -5,6 +5,7 @@ import {
   filterHistory,
   highlightParts,
   normalizeHistoryResults,
+  normalizeTabResults,
   removeDuplicateUrls,
 } from "../frontend/src/command/search.js";
 
@@ -125,4 +126,33 @@ test("ranks keywords at the start or end of the URL first", () => {
     "https://example.com/about",
     "https://github.com/leafOfTree/flykey/issues",
   ]);
+});
+
+test("tab search includes internal pages and preserves tabs sharing a URL", () => {
+  const tabs = normalizeTabResults([
+    { id: 1, title: "Settings", url: "chrome://settings/" },
+    { id: 2, title: "Svelte docs", url: "https://svelte.dev/" },
+    { id: 3, title: "Svelte docs copy", url: "https://svelte.dev/" },
+    { id: -1, title: "Invalid" },
+  ]);
+  assert.deepEqual(createDisplayList(tabs, "t").map((item) => item.tabId), [1, 2, 3]);
+  assert.deepEqual(createDisplayList(tabs, "t svelte").map((item) => item.tabId), [2, 3]);
+  assert.deepEqual(createDisplayList(tabs, "t settings").map((item) => item.tabId), [1]);
+  assert.deepEqual(createDisplayList(tabs, "t missing"), []);
+  assert.deepEqual(highlightParts("Svelte docs", "t svelte")[0], { text: "Svelte", match: true });
+});
+
+test("default search preserves original history results even when matching tabs are open", () => {
+  const history = normalizeHistoryResults([
+    { title: "Example history", url: "https://example.com/" },
+    { title: "Other history", url: "https://other.example.com/" },
+  ]);
+  const results = [
+    ...normalizeTabResults([{ id: 4, title: "Example", url: "https://example.com/" }]),
+    ...history,
+  ];
+  for (const query of ["", "example", "example.com", "h example", "l 5173"]) {
+    assert.deepEqual(createDisplayList(results, query), createDisplayList(history, query));
+  }
+  assert.equal(createDisplayList(results, "t example")[0].tabId, 4);
 });

@@ -19,7 +19,7 @@ Flykey 把浏览器交给键盘。用简短的 Vim 风格快捷键滚动网页�
 按 f，页面上每个链接和按钮都会出现短标签，输入标签即可打开。提示只出现在真正可见的元素上，滚动容器里的链接也能准确定位。
 
 【命令面板】
-按 o 打开命令面板，边输入边筛选最近访问的网页，匹配文字高亮显示，回车即可打开。输入前缀可以直接搜索指定网站：h 搜索 GitHub，y 搜索 YouTube，s 搜索 Stack Overflow，w 搜索 Wikipedia，c 搜索 GitCode。
+按 o 打开命令面板，边输入边筛选最近访问的网页，匹配文字高亮显示，回车即可打开。输入 t 加空格可只搜索当前窗口的标签页，选择后直接切换。输入前缀可以直接搜索指定网站：h 搜索 GitHub，y 搜索 YouTube，s 搜索 Stack Overflow，w 搜索 Wikipedia，c 搜索 GitCode。
 
 【页面导航】
 • j / k 向下 / 向上滚动，按住可连续滚动
@@ -66,6 +66,7 @@ Flykey 把浏览器交给键盘。用简短的 Vim 风格快捷键滚动网页�
 
 权限理由（提交审核用英文，逐项粘贴到“Privacy”页对应字段）：
 
+- `tabs`: Used only when the user opens the command palette, to read titles and URLs of open tabs in the current window and switch to a selected tab. Results are processed locally and are never stored or transmitted.
 - `history`: Used only when the user opens the command palette, to search their local browsing history. Results are filtered in memory on the device and are never stored or transmitted.
 - `bookmarks`: Used only when the user presses the bookmark shortcut, to add the current page to their bookmarks.
 - `sessions`: Used only when the user presses the restore shortcut, to reopen their most recently closed tab.

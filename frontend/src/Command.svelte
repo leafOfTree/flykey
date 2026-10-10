@@ -1,6 +1,6 @@
 <script>
   import { createEventDispatcher, onMount } from "svelte";
-  import { createDisplayList, highlightParts, normalizeHistoryResults } from "./command/search.js";
+  import { createDisplayList, highlightParts, normalizeHistoryResults, normalizeTabResults } from "./command/search.js";
   import {
     getFaviconUrl,
     hasExtensionApi,
@@ -40,18 +40,21 @@
       };
     }
 
-    sendExtensionMessage(MessageType.SEARCH_HISTORY)
-      .then((results) => {
-        if (!active) return;
-        resultList = normalizeHistoryResults(results);
-        updateList();
-      })
-      .catch((error) => {
-        if (active) errorMessage = userErrorMessage(error);
-      })
-      .finally(() => {
-        if (active) loading = false;
-      });
+    Promise.allSettled([
+      sendExtensionMessage(MessageType.SEARCH_TABS),
+      sendExtensionMessage(MessageType.SEARCH_HISTORY),
+    ]).then((responses) => {
+      if (!active) return;
+      const [tabs, history] = responses;
+      resultList = [
+        ...(tabs.status === "fulfilled" ? normalizeTabResults(tabs.value) : []),
+        ...(history.status === "fulfilled" ? normalizeHistoryResults(history.value) : []),
+      ];
+      const failed = responses.find((response) => response.status === "rejected");
+      if (failed) errorMessage = userErrorMessage(failed.reason);
+      updateList();
+      loading = false;
+    });
 
     return () => {
       active = false;
@@ -102,7 +105,9 @@
     if (!item) return;
 
     try {
-      if (newTab) {
+      if (item.tabId !== undefined) {
+        await sendExtensionMessage(MessageType.ACTIVATE_TAB, { tabId: item.tabId });
+      } else if (newTab) {
         if (hasExtensionApi()) await sendExtensionMessage(MessageType.NEW_TAB, { url: item.url });
         else window.open(item.url, "_blank", "noopener,noreferrer");
       } else {
@@ -144,7 +149,7 @@
 </script>
 
 <div class="command" role="presentation" on:click={onBackdropClick}>
-  <div class="container" role="dialog" aria-modal="true" aria-label="搜索浏览历史">
+  <div class="container" role="dialog" aria-modal="true" aria-label="搜索标签页和浏览历史">
     <div class="input-container">
       <input
         bind:this={input}
@@ -152,7 +157,7 @@
         on:input={onInput}
         on:keydown|stopPropagation={onKeydown}
         role="combobox"
-        aria-label="搜索历史记录或输入网址"
+        aria-label="搜索标签页、历史记录或输入网址"
         aria-controls="flykey-results"
         aria-expanded="true"
         aria-autocomplete="list"
@@ -166,10 +171,10 @@
       {#if errorMessage}
         <div class="status error" role="alert">{errorMessage}</div>
       {:else if !loading && !displayList.length}
-        <div class="status">没有匹配的历史记录。</div>
+        <div class="status">没有匹配的结果。</div>
       {/if}
 
-      {#each displayList as item, index (item.url)}
+      {#each displayList as item, index (item.tabId !== undefined ? `tab-${item.tabId}` : item.url)}
         <button
           type="button"
           id={`flykey-result-${index}`}
@@ -198,6 +203,9 @@
               {/each}
             </span>
           </span>
+          {#if item.tabId !== undefined}
+            <span class="tab-label">已打开</span>
+          {/if}
         </button>
       {/each}
     </div>
@@ -336,6 +344,12 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+  }
+
+  .tab-label {
+    flex-shrink: 0;
+    color: #ddd;
+    font-size: 12px;
   }
 
   .title {

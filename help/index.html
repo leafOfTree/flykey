@@ -37,7 +37,7 @@
         <div class="quick-grid">
           <article><kbd>j</kbd><kbd>k</kbd><strong>滚动页面</strong><span>按住即可连续滚动</span></article>
           <article><kbd>f</kbd><strong>定位链接</strong><span>输入页面上的提示字母</span></article>
-          <article><kbd>o</kbd><strong>搜索与打开</strong><span>历史、网址和站点搜索</span></article>
+          <article><kbd>o</kbd><strong>搜索与打开</strong><span>标签页、历史、网址和站点搜索</span></article>
         </div>
       </section>
 
@@ -93,14 +93,16 @@
         <article class="guide-copy">
           <p class="eyebrow">Command palette</p>
           <h2 id="command-title">命令面板</h2>
-          <p>按 <kbd>o</kbd> 后输入历史标题、网址或搜索词。使用方向键选择结果，按 <kbd>Esc</kbd> 关闭。</p>
+          <p>按 <kbd>o</kbd> 后输入标签页或历史标题、网址或搜索词。使用方向键选择结果，按 <kbd>Esc</kbd> 关闭。</p>
           <ul>
-            <li><kbd>Enter</kbd> 在新标签页打开</li>
+            <li>标记“已打开”的结果会直接切换到对应标签页；输入 <kbd>t</kbd> 加空格只搜索当前窗口的标签页</li>
+            <li><kbd>Enter</kbd> 在新标签页打开其他结果</li>
             <li><kbd>Ctrl</kbd>/<kbd>⌘</kbd> + <kbd>Enter</kbd> 在当前标签页打开</li>
             <li>可以直接输入完整网址或 localhost 地址</li>
           </ul>
         </article>
         <article class="prefix-card" aria-label="搜索前缀">
+          <div><kbd>t</kbd><span>当前窗口标签页</span><code>t svelte</code></div>
           <div><kbd>h</kbd><span>GitHub</span><code>h svelte</code></div>
           <div><kbd>c</kbd><span>GitCode</span><code>c vue</code></div>
           <div><kbd>s</kbd><span>Stack Overflow</span><code>s extension</code></div>

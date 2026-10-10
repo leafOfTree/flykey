@@ -90,6 +90,7 @@ npm run package
 
 | 前缀 | 搜索目标 | 示例 |
 | --- | --- | --- |
+| `t ` | 当前窗口已打开的标签页 | `t svelte` |
 | `h ` | GitHub | `h svelte` |
 | `c ` | GitCode | `c vue` |
 | `s ` | Stack Overflow | `s chrome extension` |
@@ -97,7 +98,7 @@ npm run package
 | `w ` | Wikipedia | `w browser extension` |
 | `l ` | localhost 端口 | `l 5173` |
 
-`Enter` 在新标签页打开结果，`Ctrl/Cmd + Enter` 在当前标签页打开。
+输入 `t ` 可搜索当前窗口已打开的标签页，选择后直接切换。默认显示历史搜索结果，按 `Enter` 在新标签页打开，`Ctrl/Cmd + Enter` 在当前标签页打开。
 
 ### 当前网站设置
 
@@ -156,6 +157,7 @@ flykey/
 
 | 权限 | 用途 |
 | --- | --- |
+| `tabs` | 读取当前窗口标签页的标题和网址，支持搜索并切换到已打开的标签页 |
 | `history` | 用户打开命令面板时读取本地历史并在内存中筛选 |
 | `bookmarks` | 用户主动按 `b` 时添加书签 |
 | `sessions` | 用户主动按 `u` 时恢复最近关闭的标签页 |
